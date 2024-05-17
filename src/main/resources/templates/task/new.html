@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <h1>Epic Task</h1>
+
+    
+    <form action="/task" method="post" th:object="${task}">
+        <h2>Nova Tarefa</h2>
+        <div class="nes-field">
+            <label for="title">Título</label>
+            <input type="text" th:field="*{title}" class="nes-input">
+            <span class="nes-text is-error" th:errors="*{title}"></span>
+        </div>
+
+        <div class="nes-field">
+            <label for="description">Descrição</label>
+            <input type="text" th:field="*{description}"  class="nes-input">
+            <span class="nes-text is-error" th:errors="*{description}"></span>
+
+        </div>
+
+        <div class="nes-field">
+            <label for="score">Pontos</label>
+            <input type="number" th:field="*{score}"  class="nes-input">
+            <span class="nes-text is-error" th:errors="*{score}"></span>
+
+        </div>
+
+        <div class="actions">
+            <a href="/task" class="nes-btn">cancelar</a>
+
+            <button type="submit" class="nes-btn is-primary">
+                salvar
+            </button>
+        </div>
+
+    </form>
+
+
+</body>
+
+</html>
