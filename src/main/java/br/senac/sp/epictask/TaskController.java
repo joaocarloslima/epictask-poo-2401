@@ -2,6 +2,7 @@ package br.senac.sp.epictask;
 
 import java.util.List;
 
+import org.springframework.ai.openai.OpenAiChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +24,9 @@ public class TaskController {
 
     @Autowired
     TaskRepository repository;
+
+    @Autowired
+    OpenAiChatClient gpt;
     
     @GetMapping
     public String index(Model model,@AuthenticationPrincipal OAuth2User user){
@@ -47,6 +51,14 @@ public class TaskController {
     public String create(@Valid Task task, BindingResult result){
         if(result.hasErrors()) return "task/new";
         
+        if (task.getDescription() == null || task.getDescription().isBlank()){
+            task.setDescription(gpt.call(
+                "Crie a descrição de uma tarefa com o título " 
+                + task.getTitle() + 
+                ". A descrição não pode ter mais do que 200 carecteres"
+            ));
+        }
+
         repository.save(task);
         return "redirect:/task";
     }

@@ -24,7 +24,7 @@ public class Task {
     // @PastOrPresent
     // private LocalDate dataPagamento;
 
-    @Size(min = 10, max = 255)
+    
     private String description;
 
     @Min(0)

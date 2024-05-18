@@ -14,6 +14,7 @@ public class SecurityConfig {
 
         return http
                 .oauth2Login(Customizer.withDefaults())
+                .csrf( csrf -> csrf.disable())
                 .build();
 
     }
